@@ -482,19 +482,19 @@ run_aws_script() {
     show_script_summary "$script_file"
     
     echo -n "Do you want to continue? (y/N): "
-    read confirm
+    read confirm </dev/tty
     
     if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
         print_info "Script execution cancelled"
         echo ""
         echo -n "Press Enter to return to menu..."
-        read
+        read </dev/tty
         return 0
     fi
     
     echo ""
     echo -n "Enter AWS profile name (or press Enter for 'default'): "
-    read profile
+    read profile </dev/tty
     profile=${profile:-default}
     
     echo ""
@@ -520,7 +520,7 @@ run_aws_script() {
     
     echo ""
     echo -n "Press Enter to continue..."
-    read
+    read </dev/tty
 }
 
 run_azure_script() {
@@ -548,13 +548,13 @@ run_azure_script() {
     show_script_summary "$script_file"
     
     echo -n "Do you want to continue? (y/N): "
-    read confirm
+    read confirm </dev/tty
     
     if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
         print_info "Script execution cancelled"
         echo ""
         echo -n "Press Enter to return to menu..."
-        read
+        read </dev/tty
         return 0
     fi
     
@@ -576,7 +576,7 @@ run_azure_script() {
     
     echo ""
     echo -n "Press Enter to continue..."
-    read
+    read </dev/tty
 }
 
 #############################################################################
@@ -594,7 +594,7 @@ initialize() {
         print_success "IOA scripts already initialized"
         echo ""
         echo -n "Re-download scripts? (y/N): "
-        read response
+        read response </dev/tty
         if [[ ! "$response" =~ ^[Yy]$ ]]; then
             return 0
         fi
@@ -612,7 +612,7 @@ initialize() {
     # Download scripts based on environment or all
     echo ""
     echo -n "Download scripts for all cloud providers? (Y/n): "
-    read download_all
+    read download_all </dev/tty
     
     if [[ "$download_all" =~ ^[Nn]$ ]]; then
         echo ""
@@ -621,7 +621,7 @@ initialize() {
         echo "  2) Azure"
         echo "  3) GCP"
         echo -n "Enter choice: "
-        read csp_choice
+        read csp_choice </dev/tty
         
         case $csp_choice in
             1) download_aws_scripts ;;
@@ -649,13 +649,13 @@ initialize() {
     print_success "Initialization complete!"
     echo ""
     echo -n "Press Enter to continue to main menu..."
-    read
+    read </dev/tty
 }
 
 main_loop() {
     while true; do
         show_main_menu
-        read choice
+        read choice </dev/tty
         
         case $choice in
             1)
@@ -664,7 +664,7 @@ main_loop() {
                     echo ""
                     print_warning "AWS CLI not detected. Some scripts may not work properly."
                     echo -n "Continue anyway? (y/N): "
-                    read continue
+                    read continue </dev/tty
                     if [[ ! "$continue" =~ ^[Yy]$ ]]; then
                         continue
                     fi
@@ -672,7 +672,7 @@ main_loop() {
                 
                 while true; do
                     show_aws_menu
-                    read aws_choice
+                    read aws_choice </dev/tty
                     
                     if [ "$aws_choice" = "0" ]; then
                         break
@@ -690,13 +690,13 @@ main_loop() {
                     echo ""
                     print_warning "Azure CLI not detected. Scripts will not work."
                     echo -n "Press Enter to continue..."
-                    read
+                    read </dev/tty
                     continue
                 fi
                 
                 while true; do
                     show_azure_menu
-                    read azure_choice
+                    read azure_choice </dev/tty
                     
                     if [ "$azure_choice" = "0" ]; then
                         break
@@ -711,7 +711,7 @@ main_loop() {
             3)
                 # GCP Menu
                 show_gcp_menu
-                read gcp_choice
+                read gcp_choice </dev/tty
                 ;;
             0)
                 echo ""
