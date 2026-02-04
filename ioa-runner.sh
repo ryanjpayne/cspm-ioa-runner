@@ -113,10 +113,31 @@ install_python_dependencies() {
         python3 -m ensurepip --default-pip 2>/dev/null || true
     fi
     
-    # Install requirements.txt (boto3 for AWS)
-    pip3 install -r "$INSTALL_DIR/requirements.txt" 2>/dev/null
+    # Check if running in a virtual environment
+    local in_venv=false
+    if [ -n "$VIRTUAL_ENV" ] || [ -n "$CONDA_DEFAULT_ENV" ]; then
+        in_venv=true
+        print_info "Detected virtual environment: ${VIRTUAL_ENV:-$CONDA_DEFAULT_ENV}"
+    fi
     
-    print_success "Python dependencies installed"
+    # Install requirements.txt (boto3 for AWS)
+    # Use --user flag if not in a virtual environment to avoid permission issues
+    local pip_flags=""
+    if [ "$in_venv" = false ]; then
+        pip_flags="--user"
+        print_info "Installing to user directory (not in virtual environment)"
+    fi
+    
+    if pip3 install $pip_flags -r "$INSTALL_DIR/requirements.txt" 2>&1; then
+        print_success "Python dependencies installed"
+    else
+        print_warning "Failed to install some Python dependencies, but continuing..."
+        if [ "$in_venv" = true ]; then
+            print_info "You may need to manually install: pip3 install -r $INSTALL_DIR/requirements.txt"
+        else
+            print_info "You may need to manually install: pip3 install --user -r $INSTALL_DIR/requirements.txt"
+        fi
+    fi
 }
 
 check_cloud_cli() {
