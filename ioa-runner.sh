@@ -69,8 +69,8 @@ detect_environment() {
         echo "AWS CloudShell"
     elif [ -n "$AZURE_HTTP_USER_AGENT" ] || [ -d "/usr/cloudshell" ]; then
         echo "Azure Cloud Shell"
-    elif [ -n "$DEVSHELL_PROJECT_ID" ] || [ -n "$GOOGLE_CLOUD_PROJECT" ]; then
-        echo "GCP Cloud Shell"
+    # elif [ -n "$DEVSHELL_PROJECT_ID" ] || [ -n "$GOOGLE_CLOUD_PROJECT" ]; then
+    #     echo "GCP Cloud Shell"
     else
         echo "Local/Unknown"
     fi
@@ -113,8 +113,8 @@ install_python_dependencies() {
         python3 -m ensurepip --default-pip 2>/dev/null || true
     fi
     
-    # Install boto3 for AWS
-    pip3 install --user boto3 --quiet 2>/dev/null || pip3 install boto3 --quiet
+    # Install requirements.txt (boto3 for AWS)
+    pip3 install -r "$INSTALL_DIR/requirements.txt" 2>/dev/null
     
     print_success "Python dependencies installed"
 }
@@ -141,15 +141,15 @@ check_cloud_cli() {
                 return 1
             fi
             ;;
-        gcp)
-            if command -v gcloud &> /dev/null; then
-                print_success "GCP CLI is installed"
-                return 0
-            else
-                print_warning "GCP CLI is not installed"
-                return 1
-            fi
-            ;;
+        # gcp)
+        #     if command -v gcloud &> /dev/null; then
+        #         print_success "GCP CLI is installed"
+        #         return 0
+        #     else
+        #         print_warning "GCP CLI is not installed"
+        #         return 1
+        #     fi
+        #     ;;
     esac
 }
 
@@ -304,11 +304,11 @@ show_main_menu() {
     echo ""
     echo "  1) AWS (Amazon Web Services)"
     echo "  2) Azure (Microsoft Azure)"
-    echo "  3) GCP (Google Cloud Platform)"
+    # echo "  3) GCP (Google Cloud Platform)"
     echo ""
     echo "  0) Exit"
     echo ""
-    echo -n "Enter your choice [0-3]: "
+    echo -n "Enter your choice [0-2]: "
 }
 
 show_aws_menu() {
@@ -366,17 +366,17 @@ show_azure_menu() {
     echo -n "Enter your choice: "
 }
 
-show_gcp_menu() {
-    clear
-    print_header
-    echo -e "${YELLOW}GCP IOA Scripts:${NC}"
-    echo ""
-    print_warning "No GCP IOA scripts available yet"
-    echo ""
-    echo "  0) Back to main menu"
-    echo ""
-    echo -n "Enter your choice: "
-}
+# show_gcp_menu() {
+#     clear
+#     print_header
+#     echo -e "${YELLOW}GCP IOA Scripts:${NC}"
+#     echo ""
+#     print_warning "No GCP IOA scripts available yet"
+#     echo ""
+#     echo "  0) Back to main menu"
+#     echo ""
+#     echo -n "Enter your choice: "
+# }
 
 #############################################################################
 # Script Execution Functions
@@ -619,20 +619,20 @@ initialize() {
         echo "Select cloud provider to download scripts for:"
         echo "  1) AWS"
         echo "  2) Azure"
-        echo "  3) GCP"
+        #echo "  3) GCP"
         echo -n "Enter choice: "
         read csp_choice </dev/tty
         
         case $csp_choice in
             1) download_aws_scripts ;;
             2) download_azure_scripts ;;
-            3) download_gcp_scripts ;;
+            #3) download_gcp_scripts ;;
             *) print_error "Invalid choice" ;;
         esac
     else
         download_aws_scripts
         download_azure_scripts
-        download_gcp_scripts
+        #download_gcp_scripts
     fi
     
     # Download config files
@@ -708,11 +708,11 @@ main_loop() {
                     fi
                 done
                 ;;
-            3)
-                # GCP Menu
-                show_gcp_menu
-                read gcp_choice </dev/tty
-                ;;
+            # 3)
+            #     # GCP Menu
+            #     show_gcp_menu
+            #     read gcp_choice </dev/tty
+            #     ;;
             0)
                 echo ""
                 print_info "Exiting IOA Runner. Goodbye!"
