@@ -1,6 +1,6 @@
 # CrowdStrike CSPM IOA Runner
 
-Python based demo for triggering Cloud Indicators of Attack (IOAs) based on policy definitions.
+Demo for triggering CrowdStrike Cloud Indicators of Attack (IOAs) based on policy definitions.
 
 ## 🚀 Quick Start
 
@@ -159,4 +159,8 @@ rm -rf $HOME/ioa-scripts
 
 ## Support
 
+Please submit an issue or pull request. We will address the issue as quickly as possible.
+
 ## License
+
+These scripts are provided to the community, for free, under the Unlicense license. As such, these scripts carry no formal support, express or implied.
