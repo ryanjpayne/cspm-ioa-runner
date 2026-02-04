@@ -7,7 +7,7 @@
 # scripts for AWS, Azure, and GCP cloud providers.
 #
 # Usage:
-#   curl -sSL https://raw.githubusercontent.com/YOUR_ORG/ioa-scripts/main/ioa-runner.sh | bash
+#   curl -sSL https://raw.githubusercontent.com/ryanjpayne/cspm-ioa-runner/refs/heads/main/ioa-runner.sh | bash
 #   OR
 #   bash ioa-runner.sh
 #
@@ -25,9 +25,9 @@ CYAN='\033[0;36m'
 NC='\033[0m' # No Color
 
 # Configuration
-REPO_URL="https://raw.githubusercontent.com/YOUR_ORG/ioa-scripts/main"
+REPO_URL="https://raw.githubusercontent.com/ryanjpayne/cspm-ioa-runner/refs/heads/main"
 INSTALL_DIR="$HOME/ioa-scripts"
-GITHUB_RAW_BASE="https://raw.githubusercontent.com/YOUR_ORG/ioa-scripts/main"
+GITHUB_RAW_BASE="https://raw.githubusercontent.com/ryanjpayne/cspm-ioa-runner/refs/heads/main"
 
 #############################################################################
 # Helper Functions

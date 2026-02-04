@@ -17,7 +17,7 @@ This guide provides detailed instructions on how to use the IOA Runner interacti
 
 1. Run the bootstrap script:
 ```bash
-curl -sSL https://raw.githubusercontent.com/YOUR_ORG/ioa-scripts/main/ioa-runner.sh | bash
+curl -sSL https://raw.githubusercontent.com/ryanjpayne/cspm-ioa-runner/refs/heads/main/ioa-runner.sh | bash
 ```
 
 2. The script will:

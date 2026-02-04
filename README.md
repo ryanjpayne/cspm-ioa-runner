@@ -1,34 +1,15 @@
-# CrowdStrike CSPM Real-time Visibility and Detection Demo
+# CrowdStrike CSPM IOA Runner
 
-Python based demo developed by CrowdStrike for triggering Indicators of Attack (IOAs) based on policy definitions.
+Python based demo for triggering Cloud Indicators of Attack (IOAs) based on policy definitions.
 
 ## 🚀 Quick Start
 
-The IOA Runner is a single shell script that provides an interactive menu for running CrowdStrike IOA (Indicator of Attack) scripts across AWS, Azure, and GCP cloud providers.
+The IOA Runner is a single shell script that provides an interactive menu for running CrowdStrike IOA scripts across AWS, Azure, and GCP cloud providers.
 
-### One-Line Installation
+### Download and Run
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/YOUR_ORG/ioa-scripts/main/ioa-runner.sh | bash
-```
-
-**Note:** Replace `YOUR_ORG` with your GitHub organization/username before using.
-
-### Manual Installation
-
-1. Download the script:
-```bash
-curl -sSL https://raw.githubusercontent.com/YOUR_ORG/ioa-scripts/main/ioa-runner.sh -o ioa-runner.sh
-```
-
-2. Make it executable:
-```bash
-chmod +x ioa-runner.sh
-```
-
-3. Run the script:
-```bash
-./ioa-runner.sh
+curl -sSL https://raw.githubusercontent.com/ryanjpayne/cspm-ioa-runner/refs/heads/main/ioa-runner.sh | bash
 ```
 
 ## Supported Environments
@@ -86,6 +67,7 @@ After installation, the following structure is created:
 ```
 $HOME/ioa-scripts/
 ├── READMEs
+├── ioa-runner.sh        # Main entrypoint
 ├── config.ini           # Configuration file
 ├── requirements.txt     # Python dependencies
 ├── aws/                 # AWS IOA scripts
